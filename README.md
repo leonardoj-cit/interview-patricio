@@ -7,8 +7,12 @@ Alguns itens diferenciais são conhecimentos em Angular Material, desenvolviment
 
 ## OBJETIVOS
 
-- Desenvolver uma página listando os produtos disponíveis para a compra permitindo ao usuário definir a quantidade de itens desejados e adicionar ao carrinho de compras.
+- Desenvolver uma página listando os produtos disponíveis para a compra permitindo ao usuário definir a quantidade de itens desejados e adicionar a um carrinho de compras.
 - Criar uma página de Checkout, que deverá listar os itens no carrinho de compras e permitir ao usuário visualizar e concluir a compra.
+- Voce e livre para criar o seu proprio layout, use sua critividade e conhecimento
+- A estrutura do projeto pode ser ajustado como quiser. A quebra de modulos, componentes, servicos e camadas faz parte da avaliacao.
+- Quebra de metodos e resposabilidades tambem serao avaliados.
+- Se voce tiver conhecimento em unit tests, faca-os
 
 ## API
 
