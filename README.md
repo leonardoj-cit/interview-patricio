@@ -27,13 +27,21 @@ Alguns itens diferenciais são conhecimentos em Angular Material, desenvolviment
 ## ESPECIFICAÇÕES TÉCNICAS
 
   • Node: >= 13.1.0 <= 14.17
+  
   • NPM: >= 7.x.x <=  8.xx
+  
   • Angular 8 (it's not necessary to upgrade to the new angular version)
+  
   • Install: npm install 
+  
   • Start Applicaton and run the server in parallel: npm start
+  
   • Run tests: npm test
+  
   • Run only the server: npm run json-server
+  
   • Recomendado adicionar Angular Material caso tenha connhecimento, mas também é permitido Bootstrap.
+  
   • Evitar instalar third party libraries, queremos ver vc em ação. 
 
 ## ESPECIFICAÇÕES FUNCIONAIS
