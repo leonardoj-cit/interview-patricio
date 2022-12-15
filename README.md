@@ -5,7 +5,7 @@ Book Store - Interview
 Este projeto tem o intuito de conhecer um pouco sobre o nível tecnológico e boas práticas nas linguagens: Angular e Typescript.
 Alguns itens diferenciais são conhecimentos em Angular Material, desenvolvimento de testes unitários com Jasmine para Serviços e Componentes e estilização utilizando SCSS.
 
-Crie uma nova branch apartir da MASTER e ao final do desenvolvimento crie um Pull Request para a MASTER. Caso queira adicionar algum comentario ou consideração referente ao seu desenvolvimento fique a vontade.
+Crie uma nova branch a partir da MASTER e ao final do desenvolvimento crie um Pull Request para a MASTER. Caso queira adicionar algum comentario ou consideração referente ao seu desenvolvimento fique a vontade.
 
 O prazo para entrega deste desafio será: 23/12/22.
 
