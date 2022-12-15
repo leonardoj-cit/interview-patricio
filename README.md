@@ -28,9 +28,10 @@ Alguns itens diferenciais são conhecimentos em Angular Material, desenvolviment
 - Criar um Menu horizontal no topo da página com as opções:
   • Home
   • User
-  • Guide: https://material.angular.io/components/menu/examples
-  • Lembrar de importar o modulo MatMenuModule
-
+  * Icone de carrinho de compras com um contador
+  
+-- Guide: https://material.angular.io/components/menu/examples
+  
 ### HOME
 
 - Deve conter o Header e um mensagem de bem vindo centralizado na tela.
