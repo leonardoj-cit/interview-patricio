@@ -49,11 +49,14 @@ Alguns itens diferenciais são conhecimentos em Angular Material, desenvolviment
 - Criar um Menu horizontal no topo da página (https://material.angular.io/components/menu/examples) com as opções:
 
   • Alinhado à esquerda:
+  
   •• Home
+  
   •• Sale
   
   • Alinhado à direita:
-  • Icone de carrinho de compras com um contador
+  
+  •• Icone de carrinho de compras com um contador
     
 ### HOME
 
