@@ -79,15 +79,10 @@ Alguns itens diferenciais são conhecimentos em Angular Material, desenvolviment
 ### CHECKOUT:
 
 - Ao clicar no icone do carrinho de compras, poderemos ter duas situações:
-
 -- 01: Não existem produtos no carrinho:
-
 --- O usuário não poderá sair da pagina atual e deverá ser exibido uma mensagem informativa: 'Carrinho vazio. Por favor adicione produtos'
-
 -- 02: Existem produtos no carrinho:
-
 --- O usuário deverá ser redirecionado para uma pagina contendo o menu default, a listagem de itens do carrinho e dois botões 'Finalizar Compra' (deverá remover os itens do estoque) e 'Abandonar' (deverá manter os itens no estoque).
-
 - Ao finalizar o checkout deverá exibir um Dialog com mensagem de Sucesso e DELETAR os itens do estoque (DELETE http://localhost:3000/stock/:id) e inserir na lista de checkout finalizado (POST http://localhost:3000/checkout)
 
 ### Requisições para o Servidor:
