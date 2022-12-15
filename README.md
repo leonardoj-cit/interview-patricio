@@ -84,4 +84,4 @@ O prazo para entrega deste desafio será: 23/12/22.
 
 ## IMPORTANTE: Antes de iniciar o desenvolvimento:
 
-- Existe um problema no setup original do projeto que deve ser solucionado antes de iniciar o desenvolvimento. Tente identificar a causa, sem instalar nenhuma dependencia externa.
+- Existe um problema no setup original do projeto que deve ser solucionado antes de iniciar o desenvolvimento. Tente identificar a causa e solucione sem instalar nenhuma dependencia externa.
