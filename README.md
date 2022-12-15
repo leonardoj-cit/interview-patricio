@@ -76,9 +76,12 @@ O prazo para entrega deste desafio será: 23/12/22.
 
 - As requisições para o servidor devem conter um Header default: 'Authentication' enviando uma string randomica de 16 caracteres para cada requisição.
 
-## Pontos de Atenção:
+## IMPORTANTE: Pontos de Atenção:
 
 - Dois usuários podem tentar fazer checkout do mesmo produto ao mesmo tempo. Seu sistema deve tratar concorrencia.
 - O carrinho pode ficar disponivel na sessão do usuário até um tempo limite de 24horas.
 - Tratar possiveis erros do servidor, exemplo: Subir a aplicação com o servidor offline ou falhas de comunicação com o servidor, timeouts, etc.
 
+## IMPORTANTE: Antes de iniciar o desenvolvimento:
+
+- Existe um problema no setup original do projeto que deve ser solucionado antes de iniciar o desenvolvimento. Tente identificar a causa, sem instalar nenhuma dependencia externa.
