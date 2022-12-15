@@ -65,10 +65,15 @@ Alguns itens diferenciais são conhecimentos em Angular Material, desenvolviment
 ### SALE
 
 - Ao clicar no menu Sale, o usuário deverá ser redirecionado para uma pagina contendo o menu default e a listagem de itens disponiveis para compra.
+
 - A listagem de produtos deve ser realizada em uma tabela com paginação de 10 itens por pagina.
+
 - As informações disponiveis para o usuario serão: Book name, Author, Genre, Language.
+
 - O usuário poderá adicionar itens em seu carrinho através da propria tabela, que deverá conter uma coluna para informar a quantidade (validações de campo numerico e valores acima de zero devem ser consideradas) e outra coluna com um botão ou icone 'ADD'.
+
 - Ao clicar no botão Add, deve ser verificado se existe estoque suficiente para aquele livro e em caso de sucesso adicionar ao carrinho a quantidade de livros desejados e o contador ao lado do menu deve ser incrementado. Em caso de não ter itens no estoque deve exibir um Dialog com a mensagem de Erro: “Estoque insuficiente” e não adicionar ao carrinho.
+
 - No carregamento dos produtos, caso identificado que nao existam itens no estoque, o campo de quantidade deve ser desabilitado e o botão Add' deve ser substituido pela mensagem 'Indisponivel'.
 
 ### CHECKOUT:
