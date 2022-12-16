@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ProductApiService } from '../services/product-api.service';
+import { Product } from '../shared/interfaces/product';
+import { ProductStoreService } from '../shared/services/product-store.service';
 
 @Component({
   selector: 'app-product-list',
@@ -14,15 +15,17 @@ export class ProductListComponent implements OnInit {
   loading$: Observable<boolean>;
   productList$: Observable<any>;
 
-  constructor(private productApiService: ProductApiService) {}
+  constructor(private productStoreService: ProductStoreService) {}
 
   ngOnInit() {
     this.initStore();
   }
 
   private initStore() {
-    this.productApiService.productLoadAll();
-    this.loading$ = this.productApiService.select('loading');
-    this.productList$ = this.productApiService.select('product');
+    this.productStoreService.productLoadAll();
+    this.loading$ = this.productStoreService.select('loading');
+    this.productList$ = this.productStoreService.select('product');
   }
+
+  addProductToCart(product: Product, qty: number) {}
 }
