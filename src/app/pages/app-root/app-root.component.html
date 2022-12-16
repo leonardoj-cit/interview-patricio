@@ -1,0 +1,17 @@
+<mat-toolbar>
+  <div class="row space-between w-100">
+    <div class="row">
+      <div *ngFor="let item of menuNavItemList">
+        <a mat-button [routerLink]="['/' + item.path]" routerLinkActive="router-link-active">{{
+          item.data?.title
+        }}</a>
+      </div>
+    </div>
+    <div class="mr-16 row">
+      <button mat-icon-button (click)="(null)">
+        <mat-icon [matBadge]="4" matBadgeOverlap="false" class="mat-18">shopping_cart</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>
