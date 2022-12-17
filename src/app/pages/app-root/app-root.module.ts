@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatBadgeModule, MatButtonModule, MatIconModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatIconModule, MatToolbarModule } from '@angular/material';
 
+import { CartBoxModule } from '../cart/shared/modules/cart-box/cart-box.module';
 import { AppRootRoutingModule } from './app-root-routing.module';
 import { AppRootComponent } from './app-root.component';
-
-
 
 @NgModule({
   declarations: [AppRootComponent],
@@ -15,7 +14,9 @@ import { AppRootComponent } from './app-root.component';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatBadgeModule
-  ]
+
+    MatDialogModule,
+    CartBoxModule,
+  ],
 })
-export class AppRootModule { }
+export class AppRootModule {}

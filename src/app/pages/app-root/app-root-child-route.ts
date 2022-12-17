@@ -16,7 +16,7 @@ export const appRootChildrenRoute: Routes = [
   },
   {
     path: AppRootRouteLink.CHECKOUT,
-    loadChildren: () => import('../home/home.module').then((m) => m.HomeModule),
+    loadChildren: () => import('../cart/cart.module').then((m) => m.CartModule),
     data: { title: 'Checkout', icon: 'home' },
   },
 ];

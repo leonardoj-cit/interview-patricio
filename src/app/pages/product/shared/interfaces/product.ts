@@ -2,7 +2,7 @@ export interface Product {
   id: string;
   name: string;
   author: string;
-  Genre: string[];
+  genre: string[];
   language: string;
   quantity: number;
 }

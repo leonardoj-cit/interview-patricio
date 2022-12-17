@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 
 import { Product } from '../interfaces/product';
@@ -7,22 +7,24 @@ import { ProductState } from '../interfaces/product-state';
 import { ProductApiService } from './product-api.service';
 
 @Injectable()
-export class ProductStoreService {
+export class ProductStoreService implements OnDestroy {
+  subscription: Subscription;
   state: ProductState = {
     product: [],
     loading: false,
+    saveLoading: false,
     error: '',
   };
 
-  dataEmitter = new BehaviorSubject<ProductState>({
-    product: [],
-    loading: false,
-    error: '',
-  });
+  dataEmitter = new BehaviorSubject<ProductState>(this.state);
 
   onDataChange = this.dataEmitter.asObservable();
 
-  constructor(private productApiService: ProductApiService) {}
+  constructor(private productApiService: ProductApiService) {
+    this.subscription = new Subscription();
+  }
+
+  // Reducer
   private changeData(state: ProductState) {
     this.dataEmitter.next(state);
   }
@@ -32,21 +34,47 @@ export class ProductStoreService {
     this.changeData(this.state);
   }
 
+  // Side effects
   productLoadAll() {
     this.changeState({ loading: true });
-    this.productApiService
-      .get<null, Product[]>()
-      .pipe(delay(2000)) // Simulate server delay
-      .subscribe((res) => {
-        this.changeState({ loading: false, product: res.data });
-      });
+    this.subscription.add(
+      this.productApiService
+        .getAll<Product[]>()
+        .pipe(delay(1000)) // Simulate server delay
+        .subscribe(
+          (res) => {
+            this.changeState({ loading: false, product: res.data });
+          },
+          (error) => this.changeState({ loading: false, error })
+        )
+    );
   }
 
+  productUpdateOne({ id, changes }: { id: string; changes: Partial<Product> }) {
+    this.changeState({ saveLoading: true });
+    this.subscription.add(
+      this.productApiService.updateOne<Partial<Product>, Product>({ id, changes }).subscribe(
+        (res) => {
+          const updatedProductList = [...this.state.product].map((el) =>
+            el.id == res.data.id ? res.data : el
+          );
+          this.changeState({ saveLoading: false, product: updatedProductList });
+        },
+        (error) => this.changeState({ saveLoading: false, error })
+      )
+    );
+  }
+
+  // Selector
   select(property: string) {
     return this.onDataChange.pipe(
       map((el) => {
         return el[property];
       })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
