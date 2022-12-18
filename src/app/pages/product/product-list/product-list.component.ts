@@ -70,8 +70,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
         .pipe(filter((el) => !!el))
         .subscribe((item: CartItem) => {
           if (this.selectedProduct && this.selectedProduct.id === item.id) {
-            console.log(item);
-
             this.productStoreService.productUpdateOne({
               id: this.selectedProduct.id,
               changes: { quantity: this.selectedProduct.quantity - this.selectedQty },

@@ -13,6 +13,7 @@ export class ProductStoreService implements OnDestroy {
     product: [],
     loading: false,
     saveLoading: false,
+    loaded: false,
     error: '',
   };
 
@@ -36,16 +37,16 @@ export class ProductStoreService implements OnDestroy {
 
   // Side effects
   productLoadAll() {
-    this.changeState({ loading: true });
+    this.changeState({ loading: true, loaded: false });
     this.subscription.add(
       this.productApiService
         .getAll<Product[]>()
         .pipe(delay(1000)) // Simulate server delay
         .subscribe(
           (res) => {
-            this.changeState({ loading: false, product: res.data });
+            this.changeState({ loading: false, product: res.data, loaded: true });
           },
-          (error) => this.changeState({ loading: false, error })
+          (error) => this.changeState({ loading: false, error, loaded: true })
         )
     );
   }
