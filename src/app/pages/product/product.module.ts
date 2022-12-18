@@ -1,7 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatTableModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatProgressSpinnerModule,
+  MatTableModule,
+  MatToolbarModule,
+} from '@angular/material';
 
 import { ProductListComponent } from './product-list/product-list.component';
 import {
@@ -24,7 +32,9 @@ import { ProductStoreService } from './shared/services/product-store.service';
     FormsModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule
   ],
   providers: [ProductApiService, ProductStoreService],
 })
