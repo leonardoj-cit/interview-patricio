@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { PageResult } from '@services/http-client/interfaces/page-result';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 
 import { CartItem } from '../interfaces/cart-item';
 import { CartState } from '../interfaces/cart-state';
 import { CartApiService } from './cart-api.service';
-
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +15,7 @@ export class CartStoreService {
     product: [],
     loading: false,
     saveLoading: false,
+    loaded: false,
     error: '',
   };
 
@@ -34,13 +34,16 @@ export class CartStoreService {
   }
 
   cartLoadCheckoutAll() {
-    this.changeState({ loading: true });
-    this.cartApiService.getAll<CartItem[]>().subscribe(
-      (res) => {
-        this.changeState({ loading: false, product: res.data });
-      },
-      (error) => this.changeState({ loading: false, error })
-    );
+    this.changeState({ loading: true, loaded: false });
+    this.cartApiService
+      .getAll<CartItem[]>()
+      .pipe(delay(1000))
+      .subscribe(
+        (res) => {
+          this.changeState({ loading: false, product: res.data, loaded: true });
+        },
+        (error) => this.changeState({ loading: false, error, loaded: true })
+      );
   }
 
   addProductToCart(item: CartItem) {
@@ -71,10 +74,19 @@ export class CartStoreService {
     );
   }
 
-  select(property: string) {
+  abandonPurchase() {
+    this.changeState({ product: [], saveLoading: true });
+    const idList = this.state.product.map((el) => el.id);
+    this.cartApiService.deleteMany({ idList }).subscribe(
+      (res) => this.changeState({ product: [], saveLoading: false }),
+      (error) => this.changeState({ error, saveLoading: false })
+    );
+  }
+
+  select<T>(property: string) {
     return this.onDataChange.pipe(
       map((el) => {
-        return el[property];
+        return el[property] as T;
       })
     );
   }

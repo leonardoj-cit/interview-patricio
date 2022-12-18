@@ -38,7 +38,6 @@ export class CartBoxButtonComponent implements OnInit {
   }
 
   private openCartEmptyInfoModal() {
-    console.log('Open model');
     this.dialog.open(CartBoxInfoModalComponent);
   }
 }

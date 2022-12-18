@@ -4,6 +4,7 @@ export interface CartState {
   product: CartItem[];
   loading: boolean;
   saveLoading: boolean;
+  loaded: boolean;
   error: string;
-  lastAddedItem?: CartItem
+  lastAddedItem?: CartItem;
 }
