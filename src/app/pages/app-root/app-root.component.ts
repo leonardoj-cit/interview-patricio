@@ -12,18 +12,13 @@ import { AppRootRouteLink } from './shared/enums/app-root-route-link.enum';
 export class AppRootComponent implements OnInit {
   AppRootRouteLink = AppRootRouteLink;
   menuNavItemList!: Routes;
-  constructor(
- 
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     this.createMenuNavItem();
   }
 
-
-
   private createMenuNavItem() {
-    this.menuNavItemList = appRootChildrenRoute.filter((el) => !!el.path);
+    this.menuNavItemList = appRootChildrenRoute.filter((el) => !!el.path ).filter(el=> el.path !== AppRootRouteLink.CHECKOUT);
   }
-
 }
