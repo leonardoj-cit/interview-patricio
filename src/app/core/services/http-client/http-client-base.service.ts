@@ -22,8 +22,7 @@ export abstract class HttpClientBaseService {
 
   get<payloadT, resultT>({
     url,
-    payload,
-    pageRequestOptions,
+
     headers,
   }: {
     url: string;
@@ -99,7 +98,7 @@ export abstract class HttpClientBaseService {
 
     return new Observable((observer) => {
       this.httpClient
-        .post<resultT>(`${url}`, payload, httpOptions)
+        .post<resultT>(url, payload, httpOptions)
         .pipe(
           map((data) => {
             const res: PageResult<resultT> = {
@@ -139,7 +138,7 @@ export abstract class HttpClientBaseService {
 
     return new Observable((observer) => {
       this.httpClient
-        .patch<resultT>(`${url}`, payload, httpOptions)
+        .patch<resultT>(url, payload, httpOptions)
         .pipe(
           map((data) => {
             const res: PageResult<resultT> = {
@@ -190,23 +189,37 @@ export abstract class HttpClientBaseService {
   //   });
   // }
 
-  // delete<payloadT, resultT, totalT>(endPointUrl: string): Observable<PageResult<resultT>> {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //     }),
-  //   };
+  delete<resultT>({ url, headers }: { url: string; headers?: HttpHeaders; }): Observable<PageResult<resultT>> {
+    const httpOptions = {
+      headers: headers,
+    };
 
-  //   return new Observable((observer) => {
-  //     this.httpClient
-  //       .delete<PageResult<resultT>>(`${this.url}/${endPointUrl}`, httpOptions)
-  //       .pipe(catchError((error) => this.handleError(error)))
-  //       .subscribe((res) => {
-  //         res.error ? observer.error(res.error) : observer.next(res);
-  //         observer.complete();
-  //       });
-  //   });
-  // }
+    return new Observable((observer) => {
+      this.httpClient
+        .delete<resultT>(url, httpOptions)
+        .pipe(
+          map((data) => {
+            const res: PageResult<resultT> = {
+              hasError: false,
+              error: null,
+              data,
+            };
+            return res;
+          }),
+          catchError((error) => {
+            const res: PageResult<resultT> = {
+              hasError: true,
+              error: this.handleError(error),
+            };
+            return of(res);
+          })
+        )
+        .subscribe((res) => {
+          res && res.hasError ? observer.error(res) : observer.next(res);
+          observer.complete();
+        });
+    });
+  }
 
   private handleError(error: HttpErrorResponse): PageHttpError {
     const resError: PageHttpError = {

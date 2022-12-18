@@ -1,5 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClientBaseService } from '@services/http-client/http-client-base.service';
+import { forkJoin, Observable } from 'rxjs';
+
+import { PageResult } from './interfaces/page-result';
 
 export abstract class HttpClientService extends HttpClientBaseService {
   finalUrl: string;
@@ -29,7 +32,14 @@ export abstract class HttpClientService extends HttpClientBaseService {
 
   updateMany<T>(payload: { id: string; data: T }) {}
 
-  deleteMany() {}
+  deleteMany<resultT>({ idList }: { idList: string[] }): Observable<PageResult<resultT>[]> {
+    let req: Observable<PageResult<resultT>>[] = [];
+    idList.forEach((id) => {
+      req = [...req, this.delete<resultT>({ url: `${this.finalUrl}/${id}` })];
+    });
+
+    return forkJoin(req);
+  }
 
   deleteOne() {}
 
