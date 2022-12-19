@@ -17,7 +17,6 @@ import {
 } from './product-outofstock-info-modal/product-outofstock-info-modal.component';
 import { ProductRoutingModule } from './product-routing.module';
 import { ProductComponent } from './product.component';
-import { ProductApiService } from './shared/services/product-api.service';
 import { ProductStoreService } from './shared/services/product-store.service';
 
 @NgModule({
@@ -36,6 +35,6 @@ import { ProductStoreService } from './shared/services/product-store.service';
     MatToolbarModule,
     MatProgressSpinnerModule
   ],
-  providers: [ProductApiService, ProductStoreService],
+  providers: [ ProductStoreService],
 })
 export class ProductModule {}

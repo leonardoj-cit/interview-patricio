@@ -10,6 +10,4 @@ export class CartApiService extends HttpClientService {
   constructor(public httpClient: HttpClient) {
     super(httpClient, environment.host, 'checkout');
   }
-
- 
 }

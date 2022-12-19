@@ -1,0 +1,13 @@
+<h1 matDialogTitle>Items out of stock</h1>
+
+<mat-dialog-content>
+  <div class="column" *ngIf="!!data">
+    <div *ngFor="let error of data">
+      <p>{{error}}</p>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions >
+  <button mat-button matDialogClose>Close</button>
+</mat-dialog-actions>

@@ -11,14 +11,15 @@ import {
 
 import { CartCheckoutSuccessModalComponent } from './cart-checkout-success-modal/cart-checkout-success-modal.component';
 import { CartListComponent } from './cart-list/cart-list.component';
+import { CartNotfoundProductModalComponent } from './cart-notfound-product-modal/cart-notfound-product-modal.component';
 import { CartRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
 
 
 
 @NgModule({
-  declarations: [CartComponent, CartListComponent, CartCheckoutSuccessModalComponent],
-  entryComponents: [CartCheckoutSuccessModalComponent],
+  declarations: [CartComponent, CartListComponent, CartCheckoutSuccessModalComponent, CartNotfoundProductModalComponent],
+  entryComponents: [CartCheckoutSuccessModalComponent, CartNotfoundProductModalComponent],
   imports: [
     CommonModule,
     CartRoutingModule,

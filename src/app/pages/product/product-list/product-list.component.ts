@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Product } from '@interfaces/product';
 import { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { CartStoreService } from '../../cart/shared/services/cart-store.service';
-import { Product } from '../shared/interfaces/product';
 import { ProductStoreService } from '../shared/services/product-store.service';
 import { CartItem } from './../../cart/shared/interfaces/cart-item';
 import {

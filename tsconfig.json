@@ -15,7 +15,8 @@
     "lib": ["es2018", "dom"],
     "paths": {
       "@services/*": ["src/app/core/services/*"],
-      "@interceptors/*": ["src/app/core/interceptors//*"]
+      "@interceptors/*": ["src/app/core/interceptors//*"],
+      "@interfaces/*": ["src/app/core/interfaces//*"]
     }
   },
   "angularCompilerOptions": {

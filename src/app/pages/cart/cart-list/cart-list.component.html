@@ -53,10 +53,21 @@
           </mat-table>
           <div class="p-16 mt-16 row items-center content-center">
             <div class="mr-16">
-              <button mat-flat-button color="primary" (click)="checkout()">Checkout</button>
+              <button mat-flat-button color="primary" (click)="checkout()">
+                <ng-container *ngIf="saveLoading$ | async; else elseTemplate">
+                  <mat-progress-spinner
+                    diameter="24"
+                    mode="indeterminate"
+                    color="primary"
+                  ></mat-progress-spinner>
+                </ng-container>
+                <ng-template #elseTemplate> </ng-template>
+
+                Checkout
+              </button>
             </div>
 
-            <button mat-stroked-button (click)="abandon()">Abandon purchase</button>
+            <button  *ngIf="!(saveLoading$ | async)" mat-stroked-button (click)="abandon()">Abandon purchase</button>
           </div>
         </ng-container>
         <ng-template #elseTemplate>

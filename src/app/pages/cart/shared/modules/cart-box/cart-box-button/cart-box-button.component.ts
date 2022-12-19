@@ -30,11 +30,11 @@ export class CartBoxButtonComponent implements OnInit {
     !!cartItemList.length
       ? this.router.navigate([`./${AppRootRouteLink.CHECKOUT}`])
       : this.openCartEmptyInfoModal();
+
   }
 
   private initStore() {
-    this.cartItemList$ = this.cartStoreService.select('product');
-    this.cartStoreService.cartLoadCheckoutAll();
+    this.cartItemList$ = this.cartStoreService.select('productId');
   }
 
   private openCartEmptyInfoModal() {

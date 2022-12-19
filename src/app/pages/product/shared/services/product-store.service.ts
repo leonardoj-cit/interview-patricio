@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Product } from '@interfaces/product';
+import { ProductApiService } from '@services/product/product-api.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 
-import { Product } from '../interfaces/product';
 import { ProductState } from '../interfaces/product-state';
-import { ProductApiService } from './product-api.service';
 
 @Injectable()
 export class ProductStoreService implements OnDestroy {
@@ -40,7 +40,7 @@ export class ProductStoreService implements OnDestroy {
     this.changeState({ loading: true, loaded: false });
     this.subscription.add(
       this.productApiService
-        .getAll<Product[]>()
+        .getAll<Product[]>({})
         .pipe(delay(1000)) // Simulate server delay
         .subscribe(
           (res) => {
