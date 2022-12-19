@@ -7,8 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'book-store';
-
-  ngOnInit(): void {
-    const userId = sessionStorage.getItem('userId');
-  }
 }

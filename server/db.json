@@ -1,15 +1,6 @@
 {
   "stock": [
-    {
-      "id": "2",
-      "name": "The Little Prince",
-      "author": "Antoine de Saint-Exupéry",
-      "genre": [
-        "fantasy"
-      ],
-      "language": "English",
-      "quantity": 5
-    },
+   
     {
       "id": "3",
       "name": "Harry Potter and the Philosopher's Stone",
@@ -19,7 +10,7 @@
         "mystery"
       ],
       "language": "English",
-      "quantity": 19
+      "quantity": 12
     },
     {
       "id": "4",
@@ -33,7 +24,7 @@
         "satirical novel"
       ],
       "language": "English",
-      "quantity": 7
+      "quantity": 5
     },
     {
       "id": "5",
@@ -43,7 +34,7 @@
         "fantasy novel"
       ],
       "language": "English",
-      "quantity": 2
+      "quantity": 0
     },
     {
       "id": "6",
@@ -53,7 +44,7 @@
         "fantasy"
       ],
       "language": "English",
-      "quantity": 10
+      "quantity": 2
     },
     {
       "id": "7",
@@ -77,6 +68,60 @@
     }
   ],
   "checkout": [
-
+    {
+      "id": "3",
+      "name": "Harry Potter and the Philosopher's Stone",
+      "author": "J. K. Rowling",
+      "genre": [
+        "fantasy",
+        "mystery"
+      ],
+      "language": "English",
+      "quantity": 7
+    },
+    {
+      "id": "2",
+      "name": "The Little Prince",
+      "author": "Antoine de Saint-Exupéry",
+      "genre": [
+        "fantasy"
+      ],
+      "language": "English",
+      "quantity": 5
+    },
+    {
+      "id": "5",
+      "name": "Alice's Adventures in Wonderland",
+      "author": "Lewis Carroll",
+      "genre": [
+        "fantasy novel"
+      ],
+      "language": "English",
+      "quantity": 2
+    },
+    {
+      "id": "4",
+      "name": "The Master and Margarita",
+      "author": "Mikhail Bulgakov",
+      "genre": [
+        "fantasy",
+        "farce",
+        "supernatural",
+        "romance",
+        "satirical novel"
+      ],
+      "language": "English",
+      "quantity": 2
+    },
+    {
+      "id": "6",
+      "name": "The Hobbit",
+      "author": "J. R. R. Tolkien",
+      "genre": [
+        "fantasy"
+      ],
+      "language": "English",
+      "quantity": 8
+    }
   ]
 }

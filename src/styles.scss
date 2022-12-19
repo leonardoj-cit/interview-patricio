@@ -82,3 +82,13 @@ body {
 .loading-container{
 height: 75vh;
 }
+
+.error-container{
+  padding: 16px;
+  background-color: red;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}

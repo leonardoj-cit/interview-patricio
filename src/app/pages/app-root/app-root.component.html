@@ -10,4 +10,7 @@
     <app-cart-box-button></app-cart-box-button>
   </div>
 </mat-toolbar>
+<div class="error-container" *ngIf="this.error$ | async as error">
+  <span>{{ error.message || 'Unknown Server Error'  }}</span>
+</div>
 <router-outlet></router-outlet>
