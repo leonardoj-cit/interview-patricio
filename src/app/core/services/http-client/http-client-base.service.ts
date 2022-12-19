@@ -19,7 +19,6 @@ export abstract class HttpClientBaseService {
 
   get<payloadT, resultT>({
     url,
-
     headers,
   }: {
     url: string;

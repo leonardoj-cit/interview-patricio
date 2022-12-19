@@ -36,11 +36,13 @@ export class ProductStoreService implements OnDestroy {
   }
 
   // Side effects
-  productLoadAll() {
+  productLoadAll({ page, limit }: { page: number; limit: number }) {
     this.changeState({ loading: true, loaded: false });
     this.subscription.add(
       this.productApiService
-        .getAll<Product[]>({})
+        .getAll<Product[]>({
+          requestOptionsUrlFragment: `_page=${page + 1}&_limit=${limit}`,
+        })
         .pipe(delay(1000)) // Simulate server delay
         .subscribe(
           (res) => {

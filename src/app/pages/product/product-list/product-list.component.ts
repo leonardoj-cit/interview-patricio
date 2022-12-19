@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, PageEvent } from '@angular/material';
 import { Product } from '@interfaces/product';
 import { Observable, Subscription } from 'rxjs';
 
 import { CartStoreService } from '../../cart/shared/services/cart-store.service';
+import { PageConfig } from '../shared/enums/page-config.enum';
 import { ProductStoreService } from '../shared/services/product-store.service';
 import {
   ProductOutofstockInfoModalComponent,
@@ -15,6 +16,7 @@ import {
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
+  PageConfig = PageConfig;
   displayedColumns: string[] = ['name', 'author', 'genre', 'language', 'actions'];
 
   loading$: Observable<boolean>;
@@ -38,6 +40,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  onPageEvent(event: PageEvent) {
+    this.productStoreService.productLoadAll({ page: event.pageIndex, limit: event.pageSize });
+  }
+
   addProductToCart(product: Product, qty: number) {
     this.selectedProduct = product;
     this.selectedQty = qty;
@@ -52,10 +58,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   private initStore() {
-    this.productStoreService.productLoadAll();
+    this.productStoreService.productLoadAll({ page: 0, limit: PageConfig.ITEMS_PER_PAGE });
     this.loading$ = this.productStoreService.select('loading');
     this.productList$ = this.productStoreService.select('product');
- 
   }
 
   private openOutOfStockInfoModal() {

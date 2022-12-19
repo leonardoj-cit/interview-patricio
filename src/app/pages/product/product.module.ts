@@ -6,6 +6,7 @@ import {
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
+  MatPaginatorModule,
   MatProgressSpinnerModule,
   MatTableModule,
   MatToolbarModule,
@@ -33,7 +34,8 @@ import { ProductStoreService } from './shared/services/product-store.service';
     ReactiveFormsModule,
     MatDialogModule,
     MatToolbarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatPaginatorModule
   ],
   providers: [ ProductStoreService],
 })

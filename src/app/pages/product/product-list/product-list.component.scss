@@ -2,4 +2,14 @@
   .qty-input {
     width: 100px;
   }
+  .over-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40vh;
+  }
+  .table-container{
+    position: relative
+  }
 }

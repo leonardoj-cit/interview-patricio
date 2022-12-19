@@ -19,8 +19,18 @@ export abstract class HttpClientService extends HttpClientBaseService {
       : `${this.baseUrl}`;
   }
 
-  getAll<resultT>({ headers }: { headers?: HttpHeaders }) {
-    return this.get<null, resultT>({ url: this.finalUrl, headers });
+  getAll<resultT>({
+    headers,
+    requestOptionsUrlFragment,
+  }: {
+    headers?: HttpHeaders;
+    requestOptionsUrlFragment?: string;
+  }) {
+    let url = this.finalUrl;
+    if (requestOptionsUrlFragment) {
+      url = `${this.finalUrl}?${requestOptionsUrlFragment}`;
+    }
+    return this.get<null, resultT>({ url, headers });
   }
 
   getMany<resultT>({
