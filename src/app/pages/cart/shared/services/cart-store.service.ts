@@ -34,28 +34,35 @@ export class CartStoreService {
     private cartApiService: CartApiService,
     private productApiService: ProductApiService
   ) {
-    this.cartLoadCheckoutFromSessionStorage();
+    this.loadCheckoutFromSessionStorage();
     this.validateCartTimeLimit();
   }
 
-  // Reducer
-  private changeData(state: CartState) {
-    this.dataEmitter.next(state);
+  addProductToCart(item: CartItem) {
+    this.setCartOpenedDate();
+    const targetItem = this.state.productId.find((el) => el.id === item.id);
+
+    if (targetItem && !!targetItem.id) {
+      this.changeState({
+        productId: [...this.state.productId].map((el) => {
+          if (el.id === item.id) {
+            return { ...el, quantity: item.quantity };
+          }
+          return el;
+        }),
+      });
+    } else {
+      this.changeState({
+        productId: [
+          ...this.state.productId,
+          { name: item.name, id: item.id, quantity: item.quantity },
+        ],
+      });
+    }
+    sessionStorage.setItem(this.SESSION_PRODUCT_ID_KEY, JSON.stringify(this.state.productId));
   }
 
-  private changeState(data: Partial<CartState>) {
-    this.state = { ...this.state, ...data };
-    this.changeData(this.state);
-  }
-
-  // Side effects
-  private cartLoadCheckoutFromSessionStorage() {
-    const cartProductList = sessionStorage.getItem(this.SESSION_PRODUCT_ID_KEY) || '[]';
-    this.changeState({ productId: JSON.parse(cartProductList) });
-    return cartProductList;
-  }
-
-  cartLoadCheckoutProduct() {
+  loadCheckoutProduct() {
     this.changeState({ loading: true, loaded: false });
 
     const cartProductList: CartProductId[] = JSON.parse(
@@ -106,39 +113,25 @@ export class CartStoreService {
       this.changeState({ loading: false, product: [], loaded: true });
     }
   }
-
-  addProductToCart(item: CartItem) {
-    this.setCartOpenedDate();
-    const targetItem = this.state.productId.find((el) => el.id === item.id);
-
-    if (targetItem && !!targetItem.id) {
-      this.changeState({
-        productId: [...this.state.productId].map((el) => {
-          if (el.id === item.id) {
-            return { ...el, quantity: item.quantity };
-          }
-          return el;
-        }),
-      });
-    } else {
-      this.changeState({
-        productId: [
-          ...this.state.productId,
-          { name: item.name, id: item.id, quantity: item.quantity },
-        ],
-      });
-    }
-    sessionStorage.setItem(this.SESSION_PRODUCT_ID_KEY, JSON.stringify(this.state.productId));
-  }
-
   checkout() {
     this.changeState({ saveLoading: true });
     const productIdList = this.state.product.map((el) => el.id);
     this.productApiService
       .deleteMany({ idList: productIdList })
-      .pipe(mergeMap(() => this.cartApiService.createMany({ payloadList: this.state.product })))
+      .pipe(
+        mergeMap(() => this.cartApiService.createMany({ payloadList: this.state.product })),
+        delay(1000) // Simulate server delay
+      )
       .subscribe(
-        () => this.changeState({ product: [], saveLoading: false, checkoutCompleted: true }),
+        () => {
+          this.changeState({
+            product: [],
+            saveLoading: false,
+            productId: [],
+            checkoutCompleted: true,
+          });
+          this.clearUserSessionData();
+        },
         (error) => {
           this.changeState({ errors: error, saveLoading: false });
         }
@@ -146,9 +139,8 @@ export class CartStoreService {
   }
 
   abandonPurchase() {
-    this.changeState({ product: [], productId: [] }),
-      sessionStorage.removeItem(this.SESSION_PRODUCT_ID_KEY);
-    sessionStorage.removeItem(this.SESSION_CART_CREATED_AT_KEY);
+    this.changeState({ product: [], productId: [] });
+    this.clearUserSessionData();
   }
 
   clearCheckoutCompleted() {
@@ -166,6 +158,23 @@ export class CartStoreService {
         return el[property] as T;
       })
     );
+  }
+
+  // Reducer
+  private changeData(state: CartState) {
+    this.dataEmitter.next(state);
+  }
+
+  private changeState(data: Partial<CartState>) {
+    this.state = { ...this.state, ...data };
+    this.changeData(this.state);
+  }
+
+  // Side effects
+  private loadCheckoutFromSessionStorage() {
+    const cartProductList = sessionStorage.getItem(this.SESSION_PRODUCT_ID_KEY) || '[]';
+    this.changeState({ productId: JSON.parse(cartProductList) });
+    return cartProductList;
   }
 
   // Utils
@@ -196,10 +205,13 @@ export class CartStoreService {
       const today = new Date();
       const isTimeExpired = today.getTime() > finalDate.getTime();
       if (isTimeExpired) {
-        this.changeState({ product: [], productId: [] }),
-          sessionStorage.removeItem(this.SESSION_PRODUCT_ID_KEY);
-        sessionStorage.removeItem(this.SESSION_CART_CREATED_AT_KEY);
+        this.changeState({ product: [], productId: [] }), this.clearUserSessionData();
       }
     }
+  }
+
+  private clearUserSessionData() {
+    sessionStorage.removeItem(this.SESSION_PRODUCT_ID_KEY);
+    sessionStorage.removeItem(this.SESSION_CART_CREATED_AT_KEY);
   }
 }

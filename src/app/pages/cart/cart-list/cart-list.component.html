@@ -3,14 +3,14 @@
 </mat-toolbar>
 <div class="row items-center content-center">
   <div class="column w-100 p-16">
-    <ng-container *ngIf="loading$ | async; else elseTemplate">
+    <ng-container *ngIf="loading$ | async; else dataTemplate">
       <div class="loading-container column items-center content-center">
         <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
       </div>
     </ng-container>
-    <ng-template #elseTemplate>
+    <ng-template #dataTemplate>
       <div *ngIf="checkoutProductList$ | async as productList">
-        <ng-container *ngIf="productList.length && (loaded$ | async); else elseTemplate">
+        <ng-container *ngIf="productList.length && (loaded$ | async); else emptyCartTemplate">
           <mat-table [dataSource]="productList">
             <!-- Position Column -->
             <ng-container matColumnDef="name">
@@ -53,24 +53,29 @@
           </mat-table>
           <div class="p-16 mt-16 row items-center content-center">
             <div class="mr-16">
-              <button mat-flat-button color="primary" (click)="checkout()">
+              <button
+                [disabled]="saveLoading$ | async"
+                mat-flat-button
+                color="primary"
+                (click)="checkout()"
+              >
                 <ng-container *ngIf="saveLoading$ | async; else elseTemplate">
                   <mat-progress-spinner
                     diameter="24"
                     mode="indeterminate"
-                    color="primary"
+                    color="accent"
                   ></mat-progress-spinner>
                 </ng-container>
-                <ng-template #elseTemplate> </ng-template>
-
-                Checkout
+                <ng-template #elseTemplate> Checkout</ng-template>
               </button>
             </div>
 
-            <button  *ngIf="!(saveLoading$ | async)" mat-stroked-button (click)="abandon()">Abandon purchase</button>
+            <button *ngIf="!(saveLoading$ | async)" mat-stroked-button (click)="abandon()">
+              Abandon purchase
+            </button>
           </div>
         </ng-container>
-        <ng-template #elseTemplate>
+        <ng-template #emptyCartTemplate>
           <div class="w-100 column items-center content-center">
             <p class="">Your cart is empty!</p>
             <p>Please, add products to cart.</p>
@@ -79,7 +84,7 @@
               color="primary"
               [routerLink]="['../sell']"
               routerLinkActive="router-link-active"
-              mat-button
+              mat-flat-button
               >Add products</a
             >
           </div>

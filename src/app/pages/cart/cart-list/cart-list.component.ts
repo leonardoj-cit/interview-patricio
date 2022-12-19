@@ -32,6 +32,7 @@ export class CartListComponent implements OnInit, OnDestroy {
     this.initVars();
     this.initStore();
     this.listenError();
+    this.initListenCheckoutSuccess();
   }
 
   ngOnDestroy(): void {
@@ -39,9 +40,6 @@ export class CartListComponent implements OnInit, OnDestroy {
   }
   checkout() {
     this.cartStoreService.checkout();
-    // this.openOrderPlacedSuccessModal()
-    //   .afterClosed()
-    //   .subscribe(() => this.router.navigate(['./']));
   }
 
   abandon() {
@@ -58,11 +56,7 @@ export class CartListComponent implements OnInit, OnDestroy {
     this.loaded$ = this.cartStoreService.select<boolean>('loaded');
     this.saveLoading$ = this.cartStoreService.select<boolean>('saveLoading');
 
-    this.cartStoreService.cartLoadCheckoutProduct();
-  }
-
-  private openOrderPlacedSuccessModal() {
-    return this.dialog.open(CartCheckoutSuccessModalComponent);
+    this.cartStoreService.loadCheckoutProduct();
   }
 
   private listenError() {
@@ -75,8 +69,26 @@ export class CartListComponent implements OnInit, OnDestroy {
           mergeMap((errors) =>
             this.dialog.open(CartNotfoundProductModalComponent, { data: errors }).afterClosed()
           )
-        ).subscribe(()=>  this.cartStoreService.clearErrors() )
-        
+        )
+        .subscribe(() => this.cartStoreService.clearErrors())
+    );
+  }
+
+  private initListenCheckoutSuccess() {
+    this.subscription.add(
+      this.cartStoreService
+        .select<boolean>('checkoutCompleted')
+        .pipe(
+          filter((el) => !!el),
+          take(1),
+          mergeMap(() => {
+            this.cartStoreService.clearCheckoutCompleted();
+            return this.dialog.open(CartCheckoutSuccessModalComponent).afterClosed();
+          })
+        )
+        .subscribe(() => {
+          this.router.navigate(['./']);
+        })
     );
   }
 }
