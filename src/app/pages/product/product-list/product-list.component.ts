@@ -35,6 +35,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initVars();
     this.initStore();
+    this.loadProducts();
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -58,11 +59,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   private initStore() {
-    this.productStoreService.productLoadAll({ page: 0, limit: PageConfig.ITEMS_PER_PAGE });
-    this.loading$ = this.productStoreService.select('loading');
-    this.productList$ = this.productStoreService.select('product');
+    this.loading$ = this.productStoreService.select<boolean>('loading');
+    this.productList$ = this.productStoreService.select<Product>('product');
   }
 
+  private loadProducts() {
+    this.productStoreService.productLoadAll({ page: 0, limit: PageConfig.ITEMS_PER_PAGE });
+  }
   private openOutOfStockInfoModal() {
     this.dialog.open(ProductOutofstockInfoModalComponent);
   }

@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatBadgeModule, MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { CartBoxButtonComponent } from './cart-box-button.component';
 
@@ -8,7 +11,9 @@ describe('CartBoxButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CartBoxButtonComponent ]
+      declarations: [ CartBoxButtonComponent ],
+      imports: [MatButtonModule, MatIconModule, MatBadgeModule, RouterTestingModule, HttpClientModule, MatDialogModule],
+
     })
     .compileComponents();
   }));

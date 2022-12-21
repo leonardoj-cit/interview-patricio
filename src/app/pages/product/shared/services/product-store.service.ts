@@ -9,15 +9,16 @@ import { ProductState } from '../interfaces/product-state';
 @Injectable()
 export class ProductStoreService implements OnDestroy {
   subscription: Subscription;
-  state: ProductState = {
+  initialState: ProductState = {
     product: [],
     loading: false,
     saveLoading: false,
     loaded: false,
     error: '',
   };
+  state: ProductState = this.initialState;
 
-  dataEmitter = new BehaviorSubject<ProductState>(this.state);
+  dataEmitter = new BehaviorSubject<ProductState>(this.initialState);
 
   onDataChange = this.dataEmitter.asObservable();
 
@@ -53,26 +54,15 @@ export class ProductStoreService implements OnDestroy {
     );
   }
 
-  productUpdateOne({ id, changes }: { id: string; changes: Partial<Product> }) {
-    this.changeState({ saveLoading: true });
-    this.subscription.add(
-      this.productApiService.updateOne<Partial<Product>, Product>({ id, changes }).subscribe(
-        (res) => {
-          const updatedProductList = [...this.state.product].map((el) =>
-            el.id == res.data.id ? res.data : el
-          );
-          this.changeState({ saveLoading: false, product: updatedProductList });
-        },
-        (error) => this.changeState({ saveLoading: false, error })
-      )
-    );
+  clearState() {
+    this.state = { ...this.initialState };
+    this.changeState(this.state);
   }
 
-  // Selector
-  select(property: string) {
+  select<T>(property: string) {
     return this.onDataChange.pipe(
       map((el) => {
-        return el[property];
+        return el[property] as T;
       })
     );
   }

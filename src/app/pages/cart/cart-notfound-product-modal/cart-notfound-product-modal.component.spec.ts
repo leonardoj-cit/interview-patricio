@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatButtonModule, MatDialogModule } from '@angular/material';
 
 import { CartNotfoundProductModalComponent } from './cart-notfound-product-modal.component';
 
@@ -8,9 +9,10 @@ describe('CartNotfoundProductModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CartNotfoundProductModalComponent ]
-    })
-    .compileComponents();
+      declarations: [CartNotfoundProductModalComponent],
+      imports: [MatButtonModule, MatDialogModule],
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,16 +1,23 @@
-/* tslint:disable:no-unused-variable */
+import { HttpClientModule } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 
-import { TestBed, async, inject } from '@angular/core/testing';
 import { ProductApiService } from './product-api.service';
+
+/* tslint:disable:no-unused-variable */
 
 describe('Service: ProductApi', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProductApiService]
+      imports: [HttpClientModule],
     });
   });
 
-  it('should ...', inject([ProductApiService], (service: ProductApiService) => {
+  it('should be created', () => {
+    const service: ProductApiService = TestBed.get(ProductApiService);
     expect(service).toBeTruthy();
-  }));
+  });
 });
+
+
+ 
+

@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonModule, MatDialogModule } from '@angular/material';
 
 import { ProductOutofstockInfoModalComponent } from './product-outofstock-info-modal.component';
 
@@ -8,7 +9,8 @@ describe('ProductOutofstockInfoModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductOutofstockInfoModalComponent ]
+      declarations: [ ProductOutofstockInfoModalComponent ],
+      imports: [MatDialogModule, MatButtonModule]
     })
     .compileComponents();
   }));

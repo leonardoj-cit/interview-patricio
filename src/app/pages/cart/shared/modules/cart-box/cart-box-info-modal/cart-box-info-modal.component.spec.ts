@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 
 import { CartBoxInfoModalComponent } from './cart-box-info-modal.component';
 
@@ -8,7 +9,9 @@ describe('CartBoxInfoModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CartBoxInfoModalComponent ]
+      declarations: [ CartBoxInfoModalComponent ],
+      imports: [MatButtonModule, MatDialogModule, MatIconModule],
+
     })
     .compileComponents();
   }));

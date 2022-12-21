@@ -16,7 +16,7 @@ import { CartApiService } from './cart-api.service';
 export class CartStoreService {
   SESSION_PRODUCT_ID_KEY = 'cartProductIdList';
   SESSION_CART_CREATED_AT_KEY = 'cartCreatedAt';
-  state: CartState = {
+  initialState: CartState = {
     product: [],
     productId: [],
     loading: false,
@@ -25,9 +25,8 @@ export class CartStoreService {
     errors: [],
     checkoutCompleted: false,
   };
-
-  dataEmitter = new BehaviorSubject<CartState>(this.state);
-
+  state: CartState = this.initialState;
+  dataEmitter = new BehaviorSubject<CartState>(this.initialState);
   onDataChange = this.dataEmitter.asObservable();
 
   constructor(
@@ -37,7 +36,7 @@ export class CartStoreService {
     this.loadCheckoutFromSessionStorage();
     this.validateCartTimeLimit();
   }
-
+  // Actions
   addProductToCart(item: CartItem) {
     this.setCartOpenedDate();
     const targetItem = this.state.productId.find((el) => el.id === item.id);
@@ -113,6 +112,7 @@ export class CartStoreService {
       this.changeState({ loading: false, product: [], loaded: true });
     }
   }
+
   checkout() {
     this.changeState({ saveLoading: true });
     const productIdList = this.state.product.map((el) => el.id);
@@ -151,6 +151,11 @@ export class CartStoreService {
     this.changeState({ errors: [] });
   }
 
+  clearState() {
+    this.state = { ...this.initialState };
+    this.changeState(this.state);
+  }
+
   // Selector
   select<T>(property: string) {
     return this.onDataChange.pipe(
@@ -170,7 +175,6 @@ export class CartStoreService {
     this.changeData(this.state);
   }
 
-  // Side effects
   private loadCheckoutFromSessionStorage() {
     const cartProductList = sessionStorage.getItem(this.SESSION_PRODUCT_ID_KEY) || '[]';
     this.changeState({ productId: JSON.parse(cartProductList) });

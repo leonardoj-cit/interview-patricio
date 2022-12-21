@@ -1,4 +1,13 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  MatButtonModule,
+  MatDialogModule,
+  MatProgressSpinnerModule,
+  MatTableModule,
+  MatToolbarModule,
+} from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { CartListComponent } from './cart-list.component';
 
@@ -8,9 +17,17 @@ describe('CartListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CartListComponent ]
-    })
-    .compileComponents();
+      declarations: [CartListComponent],
+      imports: [
+        MatToolbarModule,
+        MatProgressSpinnerModule,
+        MatTableModule,
+        MatButtonModule,
+        RouterTestingModule,
+        HttpClientModule,
+        MatDialogModule
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

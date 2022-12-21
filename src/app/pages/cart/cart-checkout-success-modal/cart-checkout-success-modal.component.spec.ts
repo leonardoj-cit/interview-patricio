@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 
 import { CartCheckoutSuccessModalComponent } from './cart-checkout-success-modal.component';
 
@@ -8,7 +9,8 @@ describe('CartCheckoutSuccessModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CartCheckoutSuccessModalComponent ]
+      declarations: [ CartCheckoutSuccessModalComponent ],
+      imports: [MatButtonModule, MatDialogModule, MatIconModule],
     })
     .compileComponents();
   }));
