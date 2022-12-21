@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <div class="row space-between w-100">
+    <div class="row">
+      <div *ngFor="let item of menuNavItemList">
+        <a mat-button [routerLink]="['/' + item.path]" routerLinkActive="router-link-active">{{
+          item.data?.title
+        }}</a>
+      </div>
+    </div>
+    <app-cart-box-button></app-cart-box-button>
+  </div>
+</mat-toolbar>
+<div class="error-container" *ngIf="this.error$ | async as error">
+  <span>{{ error.message || 'Unknown Server Error'  }}</span>
+</div>
+<router-outlet></router-outlet>

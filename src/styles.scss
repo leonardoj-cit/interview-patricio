@@ -1,4 +1,94 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.space-between {
+  justify-content: space-between;
+}
+.content-center {
+  justify-content: center;
+}
+.w-100 {
+  width: 100%;
+}
+.pl-8 {
+  padding-left: 8px;
+}
+.pr-8 {
+  padding-right: 8px;
+}
+
+.px-8 {
+  padding: 0 8px 0 8px;
+}
+.py-8 {
+  padding: 8px 0 8px 0;
+}
+
+.pl-16 {
+  padding-left: 16px;
+}
+.pr-16 {
+  padding-right: 16px;
+}
+.px-16 {
+  padding: 0 16px 0 16px;
+}
+.py-16 {
+  padding: 16px 0 16px 0;
+}
+.p-16 {
+  padding: 16px;
+}
+
+.ml-8 {
+  padding-left: 8px;
+}
+.mr-8 {
+  margin-right: 8px;
+}
+.mr-16 {
+  margin-right: 16px;
+}
+.my-16 {
+  margin: 16px 0 16px 0;
+}
+.mt-16 {
+  margin-top: 16px;
+}
+.mx-16 {
+  margin: 0 16px 0 16px;
+}
+
+.loading-container{
+height: 75vh;
+}
+
+.error-container{
+  padding: 16px;
+  background-color: red;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
